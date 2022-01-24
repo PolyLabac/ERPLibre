@@ -455,6 +455,111 @@ image_diff_base_website:
 	#./script/manifest/compare_backup.py --backup_file_1 ./image_db/erplibre_base.zip --backup_file_2 ./image_db/erplibre_website.zip
 	./script/manifest/compare_backup.py --backup_1 erplibre_base --backup_2 erplibre_website
 
+#############################
+#  PolyLabac installation  #
+#############################
+.PHONY: ore_install_all_labac_ore_demo_website
+ore_install_all_labac_ore_demo_website:
+	parallel ::: "./script/make.sh ore_install_website_default" "./script/make.sh labac_install_labac_website_demo" "./script/make.sh accorderie_install_website_accorderie_demo"
+
+.PHONY: accorderie_install_accorderie_demo
+accorderie_install_accorderie_demo:
+	./script/database/db_restore.py --database accorderie
+	./script/addons/install_addons.sh accorderie accorderie,accorderie_data,demo_accorderie
+
+.PHONY: accorderie_install_website_accorderie_demo
+accorderie_install_website_accorderie_demo:
+	./script/database/db_restore.py --database accorderie --image erplibre_website_crm
+	./script/addons/install_addons.sh accorderie accorderie,website_accorderie,accorderie_data,website_chat_accorderie,base_fontawesome,website_no_crawler,smile_website_login_as
+	./script/addons/install_addons_theme.sh accorderie theme_accorderie
+	./script/addons/install_addons.sh accorderie demo_website_accorderie,demo_accorderie,demo_website_chat_accorderie
+	#./script/addons/uninstall_addons.sh accorderie web_diagram_position
+
+.PHONY: ore_install_website_default
+ore_install_website_default:
+	./script/database/db_restore.py --database ore_default --image erplibre_website_crm
+	./script/addons/install_addons.sh ore_default accorderie,website_accorderie,accorderie_data,website_chat_accorderie,base_fontawesome,website_no_crawler,smile_website_login_as
+	#./script/addons/install_addons_theme.sh ore_default theme_accorderie
+	./script/addons/install_addons.sh ore_default demo_website_accorderie,demo_accorderie,demo_website_chat_accorderie
+
+.PHONY: accorderie_install_website_accorderie_prod
+accorderie_install_website_accorderie_prod:
+	./script/database/db_restore.py --database accorderie --image erplibre_website_crm
+	./script/addons/install_addons.sh accorderie accorderie_prod,accorderie_approbation,website_accorderie,website_chat_accorderie,accorderie_data,base_fontawesome,website_no_crawler,smile_website_login_as
+	./script/addons/install_addons_theme.sh accorderie theme_accorderie
+
+.PHONY: labac_install_labac_website_demo
+labac_install_labac_website_demo:
+	./script/database/db_restore.py --database labac --image erplibre_website_crm
+	./script/addons/install_addons.sh labac accorderie,website_accorderie,accorderie_data,website_chat_accorderie,website_no_crawler,smile_website_login_as,base_fontawesome
+	./script/addons/install_addons_theme.sh labac theme_ore
+	./script/addons/install_addons.sh labac demo_website_accorderie,demo_accorderie,demo_website_chat_accorderie
+	./script/addons/install_addons.sh labac ore,website_ore
+
+.PHONY: accorderie_install_migrate_mysql
+accorderie_install_migrate_mysql:
+	./script/make.sh accorderie_install_website_accorderie_prod
+	./script/addons/install_addons_dev.sh accorderie muk_dms,muk_dms_mail,muk_dms_thumbnails,muk_dms_view,muk_web_preview_audio,muk_web_preview_csv,muk_web_preview_image,muk_web_preview_markdown,muk_web_preview_msoffice,muk_web_preview_opendocument,muk_web_preview_rst,muk_web_preview_text,muk_web_preview_video,res_company_active
+	./script/addons/install_addons_dev.sh accorderie project,partner_fax,website,membership,membership_extension,accorderie_prod
+	./.venv/bin/python3 ./odoo/odoo-bin db --backup --database accorderie --restore_image accorderie
+	./script/addons/install_addons_dev.sh accorderie accorderie_migrate_mysql
+	./.venv/bin/python3 ./odoo/odoo-bin db --backup --database accorderie --restore_image accorderie_prod
+
+.PHONY: accorderie_install_migrate_mysql_fast
+accorderie_install_migrate_mysql_fast:
+	./script/database/db_restore.py --database accorderie --image accorderie
+	./script/addons/install_addons_dev.sh accorderie accorderie_migrate_mysql
+	./.venv/bin/python3 ./odoo/odoo-bin db --backup --database accorderie --restore_image accorderie_prod
+
+.PHONY: accorderie_install_template_accorderie
+accorderie_install_template_accorderie:
+	./script/database/db_restore.py --database template_accorderie
+	./script/code_generator/search_class_model.py --quiet -d addons/TechnoLibre_odoo_accorderie/accorderie -t addons/TechnoLibre_odoo_accorderie/code_generator_template_accorderie
+	./script/maintenance/black.sh ./addons/TechnoLibre_odoo_accorderie/code_generator_template_accorderie
+	./script/addons/install_addons_dev.sh template_accorderie accorderie,accorderie_data
+	./script/addons/install_addons_dev.sh template_accorderie code_generator_template_accorderie
+
+.PHONY: accorderie_install_code_generator_accorderie
+accorderie_install_code_generator_accorderie:
+	./script/database/db_restore.py --database code_generator_accorderie
+	./script/addons/install_addons_dev.sh code_generator_accorderie code_generator_accorderie
+
+.PHONY: accorderie_install_code_generator_migrator_accorderie
+accorderie_install_code_generator_migrator_accorderie:
+	./script/database/db_restore.py --database code_generator_accorderie
+	./addons/TechnoLibre_odoo_accorderie/script/restore_database_accorderie.sh
+	./script/addons/install_addons_dev.sh code_generator_accorderie code_generator_portal
+	./script/addons/install_addons_dev.sh code_generator_accorderie code_generator_migrator_accorderie
+
+.PHONY: accorderie_setup_migrate_database
+accorderie_setup_migrate_database:
+	./script/database/db_restore.py --database code_generator_db_servers
+	./script/addons/install_addons_dev.sh code_generator_db_servers code_generator_db_servers
+
+.PHONY: accorderie_open_maquette
+accorderie_open_maquette:
+#	-$(BROWSER) https://marvelapp.com/prototype/1773h559/screen/86536430
+#	-$(BROWSER) https://marvelapp.com/prototype/1773h559/screen/86537471
+#	-$(BROWSER) https://marvelapp.com/prototype/1773h559/screen/86537295
+#	-$(BROWSER) https://marvelapp.com/prototype/1773h559/screen/86697719
+#	-$(BROWSER) https://marvelapp.com/prototype/1773h559/screen/86588770
+#	-$(BROWSER) https://marvelapp.com/prototype/1773h559/screen/86537849
+#	-$(BROWSER) https://marvelapp.com/prototype/1773h559/screen/86594545
+#	-$(BROWSER) https://marvelapp.com/prototype/1773h559/screen/86537980
+#	-$(BROWSER) https://marvelapp.com/prototype/1773h559/screen/86609563
+#	-$(BROWSER) https://marvelapp.com/prototype/1773h559/screen/86608523
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.pds.individuelle.formulaire&categorie=1"
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.pos.individuelle.formulaire&categorie=1"
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.saa.offrir.nouveau.categorie_service.formulaire&membre=3&categorie=92"
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.saa.offrir.existant.formulaire&offre_service=3&membre=3"
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.saa.recevoir.choix.nouveau.formulaire&membre=3&categorie=94"
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.saa.recevoir.choix.existant.time.formulaire&membre=3&offre_service=6&date=2022-08-25&time=10:00"
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.va.oui.formulaire&echange_service=2"
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.va.non.offert.nouveau_formulaire"
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.va.non.offert.existant_formulaire&echange_service=4"
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.va.non.recu.choix.nouveau.formulaire&membre=4&echange_service=3&categorie=94"
+	-$(BROWSER) "http://127.0.0.1:8069/participer#!?state=init.va.non.recu.choix.formulaire&membre=4&echange_service=3"
+
 #########################
 #  Addons installation  #
 #########################
@@ -866,6 +971,7 @@ format:
 	./script/make.sh format_script
 	./script/make.sh format_erplibre_addons
 	./script/make.sh format_supported_addons
+	./script/make.sh format_accorderie
 
 .PHONY: format_code_generator
 format_code_generator:
@@ -890,6 +996,19 @@ format_supported_addons:
 	.venv/bin/isort --profile black -l 79 ./addons/MathBenTech_odoo-business-spending-management-quebec-canada/
 	./script/maintenance/black.sh ./addons/MathBenTech_odoo-business-spending-management-quebec-canada/
 	#./script/maintenance/prettier_xml.sh ./addons/MathBenTech_erplibre-family-management/
+
+.PHONY: format_accorderie
+format_accorderie:
+	.venv/bin/isort --profile black -l 79 ./addons/TechnoLibre_odoo_accorderie
+	./script/maintenance/black.sh ./addons/TechnoLibre_odoo_accorderie
+	.venv/bin/isort --profile black -l 79 ./addons/PolyLabac_erplibre-addons-polylabac
+	./script/maintenance/black.sh ./addons/PolyLabac_erplibre-addons-polylabac
+	#find ./addons/TechnoLibre_odoo_accorderie/ -type f -name "*css" -exec ./script/maintenance/prettier.sh {} \;
+	#find ./addons/TechnoLibre_odoo_accorderie/ -type f -name "*.xml" -exec ./script/maintenance/prettier_xml.sh {} \;
+	find ./addons/TechnoLibre_odoo_accorderie/ -type f -name "*css"|parallel ./script/maintenance/prettier.sh {}
+	find ./addons/TechnoLibre_odoo_accorderie/ -type f -name "*.xml"|parallel ./script/maintenance/prettier_xml.sh {}
+	find ./addons/PolyLabac_erplibre-addons-polylabac/ -type f -name "*css"|parallel ./script/maintenance/prettier.sh {}
+	find ./addons/PolyLabac_erplibre-addons-polylabac/ -type f -name "*.xml"|parallel ./script/maintenance/prettier_xml.sh {}
 
 .PHONY: format_code_generator_template
 format_code_generator_template:
@@ -1064,6 +1183,12 @@ config_gen_all:
 .PHONY: config_gen_code_generator
 config_gen_code_generator:
 	./script/git/git_repo_update_group.py --group base,code_generator
+	./script/generate_config.sh
+
+# generate config repo polylabac
+.PHONY: config_gen_polylabac
+config_gen_polylabac:
+	./script/git/git_repo_update_group.py --group base,code_generator,polylabac
 	./script/generate_config.sh
 
 # generate config repo image_db

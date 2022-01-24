@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="CybroOdoo" fetch="https://github.com/ERPLibre/"/>
+  <remote name="ERPLibre" fetch="https://github.com/ERPLibre/"/>
+  <remote name="MathBenTech" fetch="https://github.com/ERPLibre/"/>
+  <remote name="Numigi" fetch="https://github.com/ERPLibre/"/>
+  <remote name="OCA" fetch="https://github.com/ERPLibre/"/>
+  <remote name="OmniaGit" fetch="https://github.com/ERPLibre/"/>
+  <remote name="PolyLabac" fetch="https://github.com/PolyLabac/"/>
+  <remote name="Smile-SA" fetch="https://github.com/ERPLibre/"/>
+  <remote name="TechnoLibre" fetch="https://github.com/ERPLibre/"/>
+  <remote name="ajepe" fetch="https://github.com/ERPLibre/"/>
+  <remote name="camptocamp" fetch="https://github.com/ERPLibre/"/>
+  <remote name="dhongu" fetch="https://github.com/ERPLibre/"/>
+  <remote name="it-projects-llc" fetch="https://github.com/ERPLibre/"/>
+  <remote name="itpp-labs" fetch="https://github.com/ERPLibre/"/>
+  <remote name="kinjal-sorathiya" fetch="https://github.com/ERPLibre/"/>
+  <remote name="muk-it" fetch="https://github.com/ERPLibre/"/>
+  <remote name="novacode-nl" fetch="https://github.com/ERPLibre/"/>
+  <remote name="obayit" fetch="https://github.com/ERPLibre/"/>
+  <remote name="odoo" fetch="https://github.com/ERPLibre/"/>
+  <remote name="odooaktiv" fetch="https://github.com/ERPLibre/"/>
+  <remote name="odoomates" fetch="https://github.com/ERPLibre/"/>
+  <remote name="openeducat" fetch="https://github.com/ERPLibre/"/>
+  <remote name="pledra" fetch="https://github.com/ERPLibre/"/>
+  <remote name="tegin" fetch="https://github.com/ERPLibre/"/>
+  
+  <default remote="ERPLibre" revision="12.0" sync-j="4" sync-c="true"/>
+  
+  <project name="ERPLibre_image_db.git" path="image_db" revision="480e8fead36803da5dc9fad5650ba05cb16ae3dd" upstream="12.0" dest-branch="12.0" groups="base" clone-depth="1"/>
+  <project name="contract.git" path="addons/OCA_contract" remote="OCA" revision="a2aa26caff2301ebdeca7212ae74b06be367ea59" upstream="12.0" dest-branch="12.0" groups="addons,code_generator,image_db"/>
+  <project name="design-themes.git" path="addons/odoo_design-themes" remote="odoo" revision="f4a5affcd6592f3decda95dcce20afca517270a2" upstream="12.0" dest-branch="12.0" groups="addons,code_generator,image_db"/>
+  <project name="development.git" path="addons/MathBenTech_development" remote="MathBenTech" revision="66e17f1be83ef79c1c2ad13c001aab07c6a5d36d" upstream="12.0" dest-branch="12.0" groups="addons,base"/>
+  <project name="erplibre-addons-polylabac.git" path="addons/PolyLabac_erplibre-addons-polylabac" remote="PolyLabac" revision="607368257c615441b1921ddf3608b6f22d7d5e7e" upstream="12.0" dest-branch="12.0" groups="base"/>
+  <project name="erplibre-family-management.git" path="addons/MathBenTech_erplibre-family-management" remote="MathBenTech" revision="22dd8c74be0b655a3c54029b80d9efa2e757947a" upstream="12.0" dest-branch="12.0" groups="addons,code_generator"/>
+  <project name="erplibre_addons.git" path="addons/ERPLibre_erplibre_addons" revision="1fb75f471d1c6f6b76ec9737de473315a15fae6d" upstream="12.0" dest-branch="12.0" groups="addons,base"/>
+  <project name="erplibre_theme_addons.git" path="addons/ERPLibre_erplibre_theme_addons" revision="dc9c809ac20f9a9e3fb7b575378dc821d184091b" upstream="12.0" dest-branch="12.0" groups="addons,code_generator,image_db"/>
+  <project name="field-service.git" path="addons/OCA_field-service" remote="OCA" revision="968c69918e081e626ca16265a2318376f8a145e1" upstream="12.0" dest-branch="12.0" groups="addons,polylabac"/>
+  <project name="geospatial.git" path="addons/OCA_geospatial" remote="OCA" revision="46bcf4c4dfe6e36cd3449dcd15d2759dc6535bba" upstream="12.0" dest-branch="12.0" groups="addons,code_generator,image_db"/>
+  <project name="helpdesk.git" path="addons/OCA_helpdesk" remote="OCA" revision="96a8b187a5c25d2af1009e6808e3ea4568e49b0f" upstream="12.0_dev" dest-branch="12.0_dev" groups="addons,code_generator,image_db,polylabac"/>
+  <project name="hr.git" path="addons/OCA_hr" remote="OCA" revision="84510d897bb6f7012c732095602cc7dfef3d8924" upstream="12.0" dest-branch="12.0" groups="addons,polylabac"/>
+  <project name="maintainer-tools.git" path="script/OCA_maintainer-tools" remote="OCA" revision="a24deac77aff2f3c968b3b4c269d6aec91a379da" upstream="master" dest-branch="master" groups="odoo,code_generator"/>
+  <project name="muk_base.git" path="addons/muk-it_muk_base" remote="muk-it" revision="ef3d698f87cc265c2bfc978714b560b427e8a54c" upstream="12.0_dev" dest-branch="12.0_dev" groups="addons,base"/>
+  <project name="muk_dms.git" path="addons/muk-it_muk_dms" remote="muk-it" revision="a84adaf8c99e7c9dd731dc6cffad1576e84439af" upstream="12.0" dest-branch="12.0" groups="addons,polylabac"/>
+  <project name="muk_misc.git" path="addons/muk-it_muk_misc" remote="muk-it" revision="8751c07da76532b4e4966e0c1aa5833191042f4e" upstream="12.0_dev" dest-branch="12.0_dev" groups="addons,base"/>
+  <project name="muk_web.git" path="addons/muk-it_muk_web" remote="muk-it" revision="0672f1cd4ef95ae745bd5ceff67d13dd102d5d3a" upstream="12.0_dev" dest-branch="12.0_dev" groups="addons,base,code_generator"/>
+  <project name="muk_website.git" path="addons/muk-it_muk_website" remote="muk-it" revision="abcc32e7ff0a553b3d1284c372dea9d3a6eb98d5" upstream="12.0_remove_autoinstall" dest-branch="12.0_remove_autoinstall" groups="addons,base"/>
+  <project name="multi-company.git" path="addons/OCA_multi-company" remote="OCA" revision="acf27ca5d8f590089efdecd35a204af91ddf32eb" upstream="12.0" dest-branch="12.0" groups="addons,polylabac"/>
+  <project name="odoo-business-spending-management-quebec-canada.git" path="addons/MathBenTech_odoo-business-spending-management-quebec-canada" remote="MathBenTech" revision="48d28ce3d73552299dd0e8764f60fea77f5bae2f" upstream="12.0" dest-branch="12.0" groups="addons,base"/>
+  <project name="odoo-code-generator-template.git" path="addons/TechnoLibre_odoo-code-generator-template" remote="TechnoLibre" revision="40a5e5bc0d9e861ee24d7a5bb9c01f697b21ae48" upstream="12.0" dest-branch="12.0" groups="addons,code_generator,image_db,polylabac"/>
+  <project name="odoo-code-generator.git" path="addons/TechnoLibre_odoo-code-generator" remote="TechnoLibre" revision="144d37d01418a8a80f6b5f8d961eb2d4af9ca613" upstream="12.0" dest-branch="12.0" groups="addons,code_generator,image_db,polylabac"/>
+  <project name="odoo-partner-addons.git" path="addons/Numigi_odoo-partner-addons" remote="Numigi" revision="88c2a5c5ff326d51020c2cfcb82d36bec69b707b" upstream="12.0_dev" dest-branch="12.0_dev" groups="addons,base,image_db"/>
+  <project name="odoo-web-addons.git" path="addons/Numigi_odoo-web-addons" remote="Numigi" revision="126c90438bef1d207f8ba23fc0525ea598c7e4dc" upstream="12.0" dest-branch="12.0" groups="addons,base"/>
+  <project name="odoo.git" path="odoo" remote="odoo" revision="441ecac1f7b5d0d926e3b0aa96868e874fa2ea59" upstream="ERPLibre/12.0" dest-branch="ERPLibre/12.0" groups="odoo,base" clone-depth="10"/>
+  <project name="odoo_addons.git" path="addons/Smile-SA_odoo_addons" remote="Smile-SA" revision="18a0b25b18eb04223edab8466f5353dd7456007b" upstream="12.0_remote_autoinstall" dest-branch="12.0_remote_autoinstall" groups="addons,polylabac"/>
+  <project name="partner-contact.git" path="addons/OCA_partner-contact" remote="OCA" revision="ae4dc8163aa4d6373cb8ad39a091d7d164aff4b5" upstream="12.0" dest-branch="12.0" groups="addons,polylabac"/>
+  <project name="scrummer.git" path="addons/MathBenTech_scrummer" remote="MathBenTech" revision="718d49f78440386ac2f2b25908f1a812d47ebd1f" upstream="12.0_dev" dest-branch="12.0_dev" groups="addons,base"/>
+  <project name="server-auth.git" path="addons/OCA_server-auth" remote="OCA" revision="24564dc66f029c38e464d1a79539d5691f445b86" upstream="12.0" dest-branch="12.0" groups="addons,base,image_db"/>
+  <project name="server-brand.git" path="addons/OCA_server-brand" remote="OCA" revision="2ea549a1717d31ea097a1da646bcc964fb02b419" upstream="12.0" dest-branch="12.0" groups="addons,base"/>
+  <project name="server-tools.git" path="addons/OCA_server-tools" remote="OCA" revision="438f4777cb47d17340529873a8342ae6523e4ac3" upstream="12.0_dev" dest-branch="12.0_dev" groups="addons,base"/>
+  <project name="server-ux.git" path="addons/OCA_server-ux" remote="OCA" revision="609ad1d571c00f44d0b65386f7f50511375d2bf2" upstream="12.0" dest-branch="12.0" groups="addons,base,polylabac"/>
+  <project name="social.git" path="addons/OCA_social" remote="OCA" revision="0ae90883155556c9bdf4e0661cde16c7dbe35f40" upstream="12.0" dest-branch="12.0" groups="addons,base"/>
+  <project name="vertical-association.git" path="addons/OCA_vertical-association" remote="OCA" revision="58cfecbd2fefec271fcbb915b72e224d92f32b0e" upstream="12.0" dest-branch="12.0" groups="addons,polylabac"/>
+  <project name="web.git" path="addons/OCA_web" remote="OCA" revision="339fbbbc0e338f7422d0210f4e460055e74115ca" upstream="12.0_dev" dest-branch="12.0_dev" groups="addons,base"/>
+  <project name="website.git" path="addons/OCA_website" remote="OCA" revision="bf6802eb0c4335807bc801c241ab66935a664a64" upstream="12.0_dev" dest-branch="12.0_dev" groups="addons,code_generator,image_db"/>
+</manifest>
